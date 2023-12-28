@@ -127,66 +127,34 @@ $conn = null;
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-3 connectedSortable">
-          <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Choose Date</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form>
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+          <section class="col-lg-12 connectedSortable">
+              <div class="card card-success">
+                <div class="card-header">
+                  <label for="year">Select a Year:</label>
+                  <select id="year" onchange="updateChart()"></select>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
                 <div class="card-body">
-                <div class="form-group">
-                  <label>From Date:</label>
-                    <div class="input-group date" id="fromdate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#fromdate"/>
-                        <div class="input-group-append" data-target="#fromdate" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                  <label>To Date:</label>
-                    <div class="input-group date" id="todate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#todate"/>
-                        <div class="input-group-append" data-target="#todate" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
+                  <div class="chart">
+                    <canvas id="barChart" style="min-height: 315px; height: 250px; max-height: 250px; max-width: 100%;"
+                            data-f101="<?php echo $count_f101; ?>"
+                            data-f103="<?php echo $count_f103; ?>"
+                            data-f103a="<?php echo $count_f103a; ?>"
+                            data-cfag="<?php echo $count_cfag; ?>"></canvas>
+                  </div>
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
-            </div>
-          </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-9 connectedSortable">
-          <div class="card card-success">
-              <div class="card-header">
-                <h3 class="card-title">Bar Chart</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
               </div>
-              <div class="card-body">
-                <div class="chart">
-                  <canvas id="barChart" style="min-height: 315px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-          </section>
+            </section>
           <!-- right col -->
         </div>
         <!-- /.row (main row) -->
@@ -212,82 +180,58 @@ $conn = null;
 			<!-- End Main Footer -->
 </body>
 <script>
-   $('#fromdate').datetimepicker({
-        format: 'L'
-    });
-    
-    $('#todate').datetimepicker({
-         format: 'L'
-     });
-</script>
-<script>
+  // Your initial chart data
   var areaChartData = {
-      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', ' September', 'October', 'November', 'December'] ,
-      datasets: [
-        
-        {
-          label               : 'F-103',
-          backgroundColor     : 'rgb(19, 164, 232)',
-          borderColor         : 'rgb(19, 164, 232)',
-          pointRadius         : false,
-          pointColor          : 'rgb(19, 164, 232)',
-          pointStrokeColor    : '#13A4E8',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-          label               : 'F-101',
-          backgroundColor     : 'rgb(11, 222, 57)',
-          borderColor         : 'rgb(11, 222, 57)',
-          pointRadius          : false,
-          pointColor          : '#11E240',
-          pointStrokeColor    : 'rgb(11, 222, 57)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [28, 48, 40, 19, 86, 27, 90]
-        },
-        {
-          label               : 'F-103A',
-          backgroundColor     : 'rgb(248, 246, 4)',
-          borderColor         : 'rgb(248, 246, 4)',
-          pointRadius         : false,
-          pointColor          : 'rgb(248, 246, 4)',
-          pointStrokeColor    : '##F8F604',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-          label               : 'CFAG',
-          backgroundColor     : 'rgb(248, 4, 7)',
-          borderColor         : 'rgb(248, 4, 7)',
-          pointRadius         : false,
-          pointColor          : 'rgb(248, 4, 7)',
-          pointStrokeColor    : '#F80407',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
-        },
-      ]
-    }
- var barChartCanvas = $('#barChart').get(0).getContext('2d')
-    var barChartData = $.extend(true, {}, areaChartData)
-    var temp0 = areaChartData.datasets[0]
-    var temp1 = areaChartData.datasets[1]
-    barChartData.datasets[0] = temp1
-    barChartData.datasets[1] = temp0
+    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] ,
+    datasets: [
+      // Your datasets here
+    ]
+  };
 
-    var barChartOptions = {
-      responsive              : true,
-      maintainAspectRatio     : false,
-      datasetFill             : false
-    }
+  const currentYear = new Date().getFullYear();
+const yearDropdown = document.getElementById('year');
 
-    new Chart(barChartCanvas, {
-      type: 'bar',
-      data: barChartData,
-      options: barChartOptions
-    })
+for (let year = currentYear; year >= 2010; year--) {
+  const option = document.createElement('option');
+  option.value = year;
+  option.text = year;
+  yearDropdown.add(option);
+}
+
+// Create the initial chart
+var barChartCanvas = $('#barChart').get(0).getContext('2d');
+var barChart = new Chart(barChartCanvas, {
+  type: 'bar',
+  data: areaChartData,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    datasetFill: false
+  }
+});
+
+// Function to update the chart based on the selected year
+function updateChart() {
+    var selectedYear = document.getElementById('year').value;
+
+    // Fetch data dynamically using AJAX
+    $.ajax({
+        url: 'barData.php',
+        type: 'POST',
+        data: { year: selectedYear },
+        dataType: 'json',
+        success: function (data) {
+            // Assuming the structure of the returned data is { datasets: [...], months: [...] }
+            areaChartData.labels = data.months;
+            barChart.data.datasets = data.datasets;
+            barChart.update();
+        },
+        error: function (error) {
+            console.log('Error fetching data:', error);
+        }
+    });
+}
+
+updateChart();
 </script>
 </html>
