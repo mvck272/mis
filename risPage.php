@@ -58,9 +58,16 @@
                 <div class="col-xs-6">
                   <h3>Issuance Table</h3>
                 </div>
-                <div class="col-xs-6" style="float: right;">
-                  <button button type="button" data-toggle="modal" data-target="#addDiv" class="btn btn-block btn-primary btn-lg">
-                    <i class="fa fa-plus"></i></button>
+                
+              <div class="col-2">
+                    <label for="filterFund1">Fund</label>
+                    <select class="form-control" id="filterFund" name="filterFund1">
+                        <option value="0" selected disabled>Select Fund</option>
+                        <option value="F-101">F-101</option>
+                        <option value="F-103">F-103</option>
+                        <option value="F-103A">F-103A</option>
+                        <option value="CFAG">CFAG</option>
+                    </select>
                 </div>
                 </div>
               <div class="card-body">
@@ -126,4 +133,20 @@
 <?php include 'templates/footer.php' ?>
 			<!-- End Main Footer -->
 </body>
+<script>
+  $(document).ready(function () {
+    // Initialize DataTables
+    var table = $('#iar_table').DataTable();
+
+    // Add event listener to the filterFund dropdown
+    $('#filterFund').change(function () {
+        // Get the selected fund value
+        var selectedFund = $(this).val();
+
+        // Use DataTables API with a regular expression for exact match
+        table.column(4).search('^' + selectedFund + '$', true, false).draw();
+    });
+  });
+
+</script>
 </html>

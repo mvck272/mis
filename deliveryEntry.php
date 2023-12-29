@@ -357,9 +357,20 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 <div class="col-xs-6">
                   <h3>Delivery Table</h3>
                 </div>
+                <br>
                 <div class="col-xs-6" style="float: right;">
                   <button button type="button" data-toggle="modal" data-target="#addIar" id="add_iar" class="btn btn-block btn-primary btn-lg">
                     <i class="fa fa-plus"></i></button>
+                </div>
+                <div class="col-2">
+                    <label for="filterFund1">Fund</label>
+                    <select class="form-control" id="filterFund" name="filterFund1">
+                        <option value="0" selected disabled>Select Fund</option>
+                        <option value="F-101">F-101</option>
+                        <option value="F-103">F-103</option>
+                        <option value="F-103A">F-103A</option>
+                        <option value="CFAG">CFAG</option>
+                    </select>
                 </div>
                 </div>
                 <div class="card-body">
@@ -633,21 +644,17 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           <section>
             <div class="card-body">
               <div class="row">
-                <div class="col-2">
+                <div class="col-3">
                   <label>FUND</label>
                   <input type="text" class="form-control" id="funds" name="fund" readonly>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                   <label>Division/ FO's</label>
                   <input type="text" class="form-control" id="req_depts" name="dept" readonly>
                 </div>
-                <div class="col-4">
+                <div class="col-5">
                   <label>Responsibility Code Center</label>
                   <input type="text" class="form-control" id="rccs" name="rcc" readonly>
-                </div>
-                <div class="col-3">
-                  <label>RIS No.</label>
-                  <input type="text" class="form-control" id="risno" name="ris_no" readonly>
                 </div>
               </div>
               <hr>
@@ -1014,7 +1021,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         var selectedFund = $(this).val();
 
         // Use DataTables API with a regular expression for exact match
-        table.column(1).search('^' + selectedFund + '$', true, false).draw();
+        table.column(3).search('^' + selectedFund + '$', true, false).draw();
     });
   });
 
